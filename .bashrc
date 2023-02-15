@@ -9,7 +9,6 @@ export ALTERNATE_EDITOR=""                        # setting for emacsclient
 export EDITOR="emacsclient -t -a ''"              # $EDITOR use Emacs in terminal
 export VISUAL="emacsclient -c -a emacs"           # $VISUAL use Emacs in GUI mode
 
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -129,6 +128,14 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+function tar() {
+    if [[$1 =~ "c"]]; then
+        if ![[$2 =~ ".tar"]]; then
+            echo "No .tar extension for tarball to be created."
+        fi
+    fi
+}
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -152,9 +159,28 @@ alias ls="exa -la --color=always --group-directories-first"
 alias cat=batcat
 alias ..=" cd .."
 alias ...="cd ../.."
+alias tar=tar
 
 . "$HOME/.cargo/env"
 source ~/.bash_completion/alacritty
 eval "$(starship init bash)"
 #eval "neofetch"
 eval "pfetch && colorscript random"
+
+export QSYS_ROOTDIR="/home/spiritofbobross/intelFPGA_lite/21.1/quartus/sopc_builder/bin"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/spiritofbobross/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/spiritofbobross/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/spiritofbobross/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/spiritofbobross/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

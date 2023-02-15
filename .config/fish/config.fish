@@ -15,14 +15,14 @@ set -U fish_user_paths $HOME/.local/bin $HOME/Applications $fish_user_paths
 ### EXPORT ###
 set fish_greeting                                 # Supresses fish's intro message
 set TERM "xterm-256color"                         # Sets the terminal type
-set EDITOR "emacsclient -t -a ''"                 # $EDITOR use Emacs in terminal
+set EDITOR "vim"                                 # $EDITOR use nvim in terminal
 set VISUAL "emacsclient -c -a emacs"              # $VISUAL use Emacs in GUI mode
 
 ### SET MANPAGER
 ### Uncomment only one of these!
 
 ### "bat" as manpager
-set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -x MANPAGER "sh -c 'col -bx | batcat -l man -p'"
 
 ### "vim" as manpager
 # set -x MANPAGER '/bin/bash -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
@@ -237,7 +237,10 @@ alias lt='exa -aT --color=always --group-directories-first' # tree listing
 alias l.='exa -a | egrep "^\."'
 
 # apt update
-alias update="sudo apt update && sudo apt upgrade -y"
+alias updatePackages="sudo nala update && sudo nala upgrade"
+
+# cat to bat
+alias cat=batcat
 
 # get fastest mirrors
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
@@ -250,10 +253,13 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
+# alias grep to ripgrep
+alias grep=rg
+
 # confirm before overwriting something
 alias cp="cp -i"
 alias mv='mv -i'
-alias rm='rm -i'
+#alias rm='rm -i'
 
 # adding flags
 alias df='df -h'                          # human-readable sizes
@@ -335,6 +341,9 @@ alias sdn="shutdown now"
 # SSH into rit servers
 alias ritCs="ssh met3530@glados.cs.rit.edu"
 alias ritCe="ssh met3530@eng-2500-10.main.ad.rit.edu"
+
+# for ESP devices, . ./export.[fi]sh needs to be run
+alias esp-init ". ~/esp-idf/export.fish"
 
 ### RANDOM COLOR SCRIPT ###
 # Get this script from my GitLab: gitlab.com/dwt1/shell-color-scripts
